@@ -5,7 +5,7 @@ metadata:
     app: db
   name: db
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: db
@@ -31,3 +31,12 @@ spec:
       volumes:
       - name: db-data
         emptyDir: {} 
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: db
+      nodeSelector:
+        env: prod
