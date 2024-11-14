@@ -30,7 +30,8 @@ spec:
           name: db-data
       volumes:
       - name: db-data
-        emptyDir: {} 
+        persistentVolumeClaim:
+          claimName: db-data-claim
       topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
