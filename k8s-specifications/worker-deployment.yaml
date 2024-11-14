@@ -17,3 +17,12 @@ spec:
       containers:
       - image: dockersamples/examplevotingapp_worker
         name: worker
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: worker
+      nodeSelector:
+        env: prod
